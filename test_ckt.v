@@ -13,7 +13,7 @@ module test_ckt(Z,A,B,C,D,E,F);
 	or G7 (q,m,B);
 	or G8 (s,B,l);
 	and G9 (r,A,p);
-	and G10 (u,p,m);
+	and G10 (u,A,m);
 	and G11 (w,q,s);
 	xor G12 (Z,r,u,w);
 	
