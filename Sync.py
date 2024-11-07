@@ -12,7 +12,7 @@ def parse_file(filename="C:\iverilog\TT.csv"):
     # truth_table = pd.read_csv("C:\\iverilog\\test.csv")
     # print(truth_table)
 
-def worker(tt=truth_table,fault="w/STF",output="Z",inputs=["A","B","C","D","E","F"]):
+def worker(tt=truth_table,fault="B/STR",output="Z",inputs=["A","B","C","D","E","F"]):
     parts = fault.split('/')
     wire=parts[0]
     V1_wire=None
