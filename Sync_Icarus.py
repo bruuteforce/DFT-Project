@@ -31,13 +31,17 @@ def worker(tt=truth_table,fault="A/STF",outputs=["Z"],inputs=["A","B","C","D","E
     for output in outputs:
         for i in range(num_rows): 
             for j in range(i + 1, num_rows): 
-                if tt.iloc[i][wire] == V1_wire and tt.iloc[j][wire] == V2_wire and tt.iloc[i][output] != tt.iloc[j][output]: 
+                if ((tt.iloc[i][wire] == V1_wire and tt.iloc[j][wire] == V2_wire) or (tt.iloc[j][wire] == V1_wire and tt.iloc[i][wire] == V2_wire)) and tt.iloc[i][output] != tt.iloc[j][output]: 
                     diff = tt.loc[i, inputs] != tt.loc[j, inputs]  
                     sum = 0
                     for d in diff:
                         sum+=d
                     if(sum == 1):
-                        pairs.append((i,j))
+                        #if i is V1
+                        if tt.iloc[i][wire] == V1_wire:
+                            pairs.append((i,j))
+                        else:
+                            pairs.append((j,i))
     with open(Out_File, 'a') as f:
         print("Test Vectors for fault:",fault)
         f.write(f"Test Vectors for fault:{fault}\n")

@@ -43,7 +43,9 @@ Test Vectors for fault:m/STR
 V1:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 V2:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
 Test Vectors for fault:p/STR
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 Test Vectors for fault:q/STR
 	[A B C D E F g h k l m p q s r u w Z]
 V1:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
@@ -67,48 +69,72 @@ Test Vectors for fault:Z/STR
 V1:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 V2:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
 Test Vectors for fault:A/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[1 0 0 1 0 0 1 0 1 0 1 0 1 0 0 1 0 1]
+V2:	[0 0 0 1 0 0 1 0 1 0 1 0 1 0 0 0 0 0]
 Test Vectors for fault:B/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 Test Vectors for fault:C/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 1 0 0 1 1 1 0 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 Test Vectors for fault:D/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 Test Vectors for fault:E/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 0 1 1 0 1 0 1 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 1 0 0 1 0 1 0 1 0 1 0 0 0 0 0]
 Test Vectors for fault:F/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 1 0 0 1 0 1 0 1 0 1 0 0 0 0 0]
 Test Vectors for fault:g/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 Test Vectors for fault:h/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 1 0 0 1 1 1 0 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 Test Vectors for fault:k/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 Test Vectors for fault:l/STF
 	[A B C D E F g h k l m p q s r u w Z]
 V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
-V2:	[0 0 0 1 1 1 1 0 1 0 1 0 1 0 0 0 0 0]
+V2:	[0 0 0 1 0 0 1 0 1 0 1 0 1 0 0 0 0 0]
 Test Vectors for fault:m/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0]
 Test Vectors for fault:p/STF
 	[A B C D E F g h k l m p q s r u w Z]
 V1:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 V2:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
 Test Vectors for fault:q/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 Test Vectors for fault:s/STF
 	[A B C D E F g h k l m p q s r u w Z]
-V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
-V2:	[0 0 0 1 1 1 1 0 1 0 1 0 1 0 0 0 0 0]
+V1:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 Test Vectors for fault:r/STF
 	Fault Not Detected.
 Test Vectors for fault:u/STF
-	Fault Not Detected.
+	[A B C D E F g h k l m p q s r u w Z]
+V1:	[1 0 0 1 0 0 1 0 1 0 1 0 1 0 0 1 0 1]
+V2:	[0 0 0 1 0 0 1 0 1 0 1 0 1 0 0 0 0 0]
 Test Vectors for fault:w/STF
 	[A B C D E F g h k l m p q s r u w Z]
-V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
-V2:	[0 0 0 1 1 1 1 0 1 0 1 0 1 0 0 0 0 0]
+V1:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 Test Vectors for fault:Z/STF
 	[A B C D E F g h k l m p q s r u w Z]
-V1:	[0 0 0 1 0 1 1 0 1 1 1 0 1 1 0 0 1 1]
-V2:	[0 0 0 1 1 1 1 0 1 0 1 0 1 0 0 0 0 0]
+V1:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+V2:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
