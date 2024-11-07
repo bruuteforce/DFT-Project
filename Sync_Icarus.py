@@ -64,7 +64,7 @@ os.system(f"C:\iverilog\\bin\\vvp.exe -l TT.csv TB")
 parse_file(f"E:\DFT\project\TT.csv")
 
 ####################################################
-Fault_List=["B/STR","w/STF","p/STF","A/STR"]
+Fault_List=["A/STR","B/STR","C/STR","D/STR","E/STR","F/STR","g/STR","h/STR","k/STR","l/STR","m/STR","p/STR","q/STR","s/STR","r/STR","u/STR","w/STR","Z/STR","A/STF","B/STF","C/STF","D/STF","E/STF","F/STF","g/STF","h/STF","k/STF","l/STF","m/STF","p/STF","q/STF","s/STF","r/STF","u/STF","w/STF","Z/STF"]
 Inputs=["A","B","C","D","E","F"]
 Outputs=["Z"]
 for fault in Fault_List:
