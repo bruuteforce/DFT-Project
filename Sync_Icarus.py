@@ -1,6 +1,10 @@
 import pandas as pd
 import os
 
+Out_File="Results_ATPG.txt"
+with open(Out_File, 'w') as f:
+    pass
+
 truth_table=None
 def parse_file(filename="C:\iverilog\TT.csv"):
     global truth_table
@@ -34,14 +38,20 @@ def worker(tt=truth_table,fault="A/STF",outputs=["Z"],inputs=["A","B","C","D","E
                         sum+=d
                     if(sum == 1):
                         pairs.append((i,j))
-    print("Test Vectors for fault:",fault)
+    with open(Out_File, 'a') as f:
+        print("Test Vectors for fault:",fault)
+        f.write(f"Test Vectors for fault:{fault}\n")
     for pair in pairs:
-        row_str = ' '.join([f"{col}" for col, val in tt.iloc[pair[0]].items()]) 
-        print(f"[{row_str}]")
-        row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[0]].items()]) 
-        print(f"[{row_str}]")
-        row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[1]].items()]) 
-        print(f"[{row_str}]")
+        with open(Out_File, 'a') as f:
+            row_str = ' '.join([f"{col}" for col, val in tt.iloc[pair[0]].items()]) 
+            print(f"[{row_str}]")
+            f.write(f"\t[{row_str}]\n")
+            row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[0]].items()]) 
+            print(f"[{row_str}]")
+            f.write(f"V1:\t[{row_str}]\n")
+            row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[1]].items()]) 
+            print(f"[{row_str}]")
+            f.write(f"V2:\t[{row_str}]\n")
         break 
 
 os.system(f"C:\iverilog\\bin\iverilog.exe -I E:\DFT\project\ -o TB E:\DFT\project\\testbench.v")   
