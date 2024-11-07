@@ -10,3 +10,5 @@ Test Vectors for fault:p/STF
 	[A B C D E F g h k l m p q s r u w Z]
 V1:	[0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0]
 V2:	[0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1]
+Test Vectors for fault:A/STR
+	Fault Not Detected.

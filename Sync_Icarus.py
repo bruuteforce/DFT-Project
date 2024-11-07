@@ -41,25 +41,30 @@ def worker(tt=truth_table,fault="A/STF",outputs=["Z"],inputs=["A","B","C","D","E
     with open(Out_File, 'a') as f:
         print("Test Vectors for fault:",fault)
         f.write(f"Test Vectors for fault:{fault}\n")
-    for pair in pairs:
+    if not pairs:
         with open(Out_File, 'a') as f:
-            row_str = ' '.join([f"{col}" for col, val in tt.iloc[pair[0]].items()]) 
-            print(f"[{row_str}]")
-            f.write(f"\t[{row_str}]\n")
-            row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[0]].items()]) 
-            print(f"[{row_str}]")
-            f.write(f"V1:\t[{row_str}]\n")
-            row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[1]].items()]) 
-            print(f"[{row_str}]")
-            f.write(f"V2:\t[{row_str}]\n")
-        break 
+            print(f"Fault Not Detected.")
+            f.write(f"\tFault Not Detected.\n")
+    else:
+        for pair in pairs:
+            with open(Out_File, 'a') as f:
+                row_str = ' '.join([f"{col}" for col, val in tt.iloc[pair[0]].items()]) 
+                print(f"[{row_str}]")
+                f.write(f"\t[{row_str}]\n")
+                row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[0]].items()]) 
+                print(f"[{row_str}]")
+                f.write(f"V1:\t[{row_str}]\n")
+                row_str = ' '.join([f"{val}" for col, val in tt.iloc[pair[1]].items()]) 
+                print(f"[{row_str}]")
+                f.write(f"V2:\t[{row_str}]\n")
+            break 
 
 os.system(f"C:\iverilog\\bin\iverilog.exe -I E:\DFT\project\ -o TB E:\DFT\project\\testbench.v")   
 os.system(f"C:\iverilog\\bin\\vvp.exe -l TT.csv TB")  
 parse_file(f"E:\DFT\project\TT.csv")
 
 ####################################################
-Fault_List=["B/STR","w/STF","p/STF"]
+Fault_List=["B/STR","w/STF","p/STF","A/STR"]
 Inputs=["A","B","C","D","E","F"]
 Outputs=["Z"]
 for fault in Fault_List:
