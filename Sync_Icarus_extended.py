@@ -140,30 +140,30 @@ endmodule
 """
     return tb_content
 
-v_file="E:\DFT\project\\c432.v"
+# v_file="E:\DFT\project\\c432.v"
 
-# Read the Verilog file content
-verilog_content = read_verilog_file(v_file)
+# # Read the Verilog file content
+# verilog_content = read_verilog_file(v_file)
 
 # Continue with parsing the Verilog content
-ckt_name, Inputs, Outputs, Wires, Mod_ports = parse_verilog(verilog_content)
+# ckt_name, Inputs, Outputs, Wires, Mod_ports = parse_verilog(verilog_content)
 
-print(f"Inputs: {Inputs}")
-print(f"Outputs: {Outputs}")
-print(f"Wires: {Wires}")
+# print(f"Inputs: {Inputs}")
+# print(f"Outputs: {Outputs}")
+# print(f"Wires: {Wires}")
 
-testbench_content=generate_testbench("testbench",ckt_name,Mod_ports,Inputs,Outputs,Wires,v_file)
-with open(f"testbench.v", 'w') as tb_file:
-    tb_file.write(testbench_content)
+# testbench_content=generate_testbench("testbench",ckt_name,Mod_ports,Inputs,Outputs,Wires,v_file)
+# with open(f"testbench.v", 'w') as tb_file:
+#     tb_file.write(testbench_content)
 
 #os.system(f"C:\iverilog\\bin\iverilog.exe -I E:\DFT\project\ -o TB E:\DFT\project\\testbench.v")   
 #os.system(f"C:\iverilog\\bin\\vvp.exe -l TT.csv TB")  
-parse_file(f"E:\DFT\project\TT.csv")
+# parse_file(f"E:\DFT\project\TT.csv")
 
 ####################################################
 #Fault_List=["A/STR","B/STR","C/STR","D/STR","E/STR","F/STR","g/STR","h/STR","k/STR","l/STR","m/STR","p/STR","q/STR","s/STR","r/STR","u/STR","w/STR","Z/STR","A/STF","B/STF","C/STF","D/STF","E/STF","F/STF","g/STF","h/STF","k/STF","l/STF","m/STF","p/STF","q/STF","s/STF","r/STF","u/STF","w/STF","Z/STF"]
 #Inputs=["A","B","C","D","E","F"]
 #Outputs=["Z"]
-Fault_List=["N69/STR"]
-for fault in Fault_List:
-    worker(truth_table,fault,Outputs,Inputs)
+# Fault_List=["N69/STR"]
+# for fault in Fault_List:
+#     worker(truth_table,fault,Outputs,Inputs)
