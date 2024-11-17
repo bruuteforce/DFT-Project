@@ -81,17 +81,18 @@ class PODEM:
                 return True
         return False
 
-def launcher(podem,Inputs,stuck_at_faults,idx,thr_list):
+def launcher(podem,Inputs,stuck_at_fault,idx,thr_list):
     # print(f"{idx}::launcher[{idx}]")
     # Rotate the list such that the given element is at the rightmost position 
     rotated_Inputs = Inputs[idx + 1:] + Inputs[:idx + 1]
 
     initial_inputs = {inp: None for inp in rotated_Inputs} 
     podem.circuit.set_inputs(**initial_inputs)
-
+    #######  mind your changes these are globals
+    global Found_v1, Found_v2
+    
     # Find test pattern
-    for fault in stuck_at_faults:
-        test_pattern = podem.find_test_pattern(fault)
+    test_pattern = podem.find_test_pattern(stuck_at_fault)
 
     if(podem.v1):
         # print(f"{idx}:: Test pattern V1: {podem.v1}")
@@ -108,14 +109,14 @@ def launcher(podem,Inputs,stuck_at_faults,idx,thr_list):
             # list1.append(podem.v2[input])
         print(f"V2:{list}")
         # print(f"V2_dash:{list1}")
-    global Found_v2
+    
     Found_v2=1
 
 if __name__ == "__main__":
 
     # Define the circuit
     v_file='c432.v'
-    delay_faults = ["N177/STF"]
+    delay_faults = ["N250/STR","N177/STF"]
     
     # v_file='c17.v'
     # delay_faults = ["N11/STF"]
@@ -135,16 +136,18 @@ if __name__ == "__main__":
     #for p1,p2 in zip(test_patterns1,test_patterns2):
     #    print(f"Test pattern 1:  {p1}")
     #    print(f"Test pattern 2: for {p2[1]}: {p2[0]}")
-    threads=[]
+    for index,fault in enumerate(stuck_at_faults):
+        threads=[]
+        Found_v1=Found_v2=0
+        print(f"\nTest Vectors for {delay_faults[index]}:")
+        for i in range(len(Inputs)):
+            circuit = create_test_ckt(v_file,Inputs,Outputs)
+            # Initialize PODEM
+            podem = PODEM(circuit,i)
+            threads.append(threading.Thread(target=launcher, args=(podem,Inputs,fault,i,threads)))
 
-    for i in range(len(Inputs)):
-        circuit = create_test_ckt(v_file,Inputs,Outputs)
-        # Initialize PODEM
-        podem = PODEM(circuit,i)
-        threads.append(threading.Thread(target=launcher, args=(podem,Inputs,stuck_at_faults,i,threads)))
+        for t in threads:
+            t.start()
 
-    for t in threads:
-        t.start()
-
-    for t in threads:
-        t.join()
+        for t in threads:
+            t.join()
