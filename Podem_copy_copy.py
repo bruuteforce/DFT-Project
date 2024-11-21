@@ -6,6 +6,7 @@ from D_alg_copy_copy import Gate
 from Sync_Icarus_extended import parse_verilog
 from Sync_Icarus_extended import read_verilog_file
 import threading
+mutex=threading.Lock()
 
 Found_v1=0
 Found_v2=0
@@ -93,30 +94,45 @@ def launcher(podem,Inputs,stuck_at_fault,idx,thr_list):
     
     # Find test pattern
     test_pattern = podem.find_test_pattern(stuck_at_fault)
-
-    if(podem.v1):
-        # print(f"{idx}:: Test pattern V1: {podem.v1}")
-        list=[]
-        for input in Inputs:
-            list.append(podem.v1[input])
-        print(f"V1:{list}")
-    if(test_pattern):
-        # print(f"{idx}:: Test pattern for fault {fault}: {test_pattern}")
-        list=[]
-        # list1=[]
-        for input in Inputs:
-            list.append(test_pattern[input])
-            # list1.append(podem.v2[input])
-        print(f"V2:{list}")
-        # print(f"V2_dash:{list1}")
-    
-    Found_v2=1
+    with mutex:
+        if(podem.v1):
+            # print(f"{idx}:: Test pattern V1: {podem.v1}")
+            list=[]
+            for input in Inputs:
+                list.append('x' if podem.v1[input] is None else podem.v1[input])
+            print(f"V1:{list}")
+            input_v1 = podem.v1
+            podem.circuit.set_inputs(**input_v1)
+            podem.circuit.evaluate()
+            list=[]
+            for output in Outputs:
+                list.append('x' if podem.v1[output] is None else podem.v1[output])
+            print(f"output:{list}")
+        if(test_pattern):
+            # print(f"{idx}:: Test pattern for fault {fault}: {test_pattern}")
+            list=[]
+            # list1=[]
+            for input in Inputs:
+                list.append('x' if test_pattern[input] is None else test_pattern[input])
+                # list1.append(podem.v2[input])
+            print(f"V2:{list}")
+            # print(f"V2_dash:{list1}")
+            input_v2 = test_pattern
+            podem.circuit.set_inputs(**input_v2)
+            podem.circuit.evaluate()
+            v2_outputs=podem.circuit.get_outputs()
+            list=[]
+            for output in Outputs:
+                list.append('x' if v2_outputs[output] is None else v2_outputs[output])
+            print(f"output:{list}")
+        
+        Found_v2=1
 
 if __name__ == "__main__":
 
     # Define the circuit
     v_file='c432.v'
-    delay_faults = ["N250/STR","N177/STF"]
+    delay_faults = ["N250/STR","N122/STF"]
     
     # v_file='c17.v'
     # delay_faults = ["N11/STF"]
