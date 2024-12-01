@@ -1,15 +1,17 @@
-from D_alg_copy_copy import create_test_ckt 
-from D_alg_copy_copy import generate_test_patterns
-from D_alg_copy_copy import convert_fault_list
-from D_alg_copy_copy import check_fault_loc_value
-from D_alg_copy_copy import Gate
-from Sync_Icarus_extended import parse_verilog
-from Sync_Icarus_extended import read_verilog_file
+from circuit_gate_classes import create_test_ckt 
+from circuit_gate_classes import generate_test_patterns
+from circuit_gate_classes import convert_fault_list
+from circuit_gate_classes import check_fault_loc_value
+from circuit_gate_classes import Gate
+from sync_basics import parse_verilog
+from sync_basics import read_verilog_file
 import threading
 mutex=threading.Lock()
 
 Found_v1=0
 Found_v2=0
+
+Out_File="Results_ATPG.txt"
 
 class PODEM:
     def __init__(self, circuit, idx):
@@ -58,14 +60,12 @@ class PODEM:
         global Found_v1
         self.circuit.inject_fault(fault[0], fault[1])
         self.circuit.evaluate()
-        # self.circuit.print_inputs(f"{self.idx}::check:input:faulty:")
-        # self.circuit.print_outputs(f"{self.idx}::check:output:faulty")
+
         fault_outputs = self.circuit.get_outputs()
         
         self.circuit.clear_faults()
         self.circuit.evaluate()
-        # self.circuit.print_inputs(f"{self.idx}::check:input:fault_free:")
-        # self.circuit.print_outputs(f"{self.idx}::check:output:fault_free:")
+
         no_fault_outputs = self.circuit.get_outputs()
         if (self.found_v1 == 0) and check_fault_loc_value(self.circuit,fault,self.idx):
             self.v1=dict(self.circuit.values)
@@ -83,8 +83,7 @@ class PODEM:
         return False
 
 def launcher(podem,Inputs,stuck_at_fault,idx,thr_list):
-    # print(f"{idx}::launcher[{idx}]")
-    # Rotate the list such that the given element is at the rightmost position 
+
     rotated_Inputs = Inputs[idx + 1:] + Inputs[:idx + 1]
 
     initial_inputs = {inp: None for inp in rotated_Inputs} 
@@ -96,11 +95,13 @@ def launcher(podem,Inputs,stuck_at_fault,idx,thr_list):
     test_pattern = podem.find_test_pattern(stuck_at_fault)
     with mutex:
         if(podem.v1):
-            # print(f"{idx}:: Test pattern V1: {podem.v1}")
             list=[]
             for input in Inputs:
                 list.append('x' if podem.v1[input] is None else podem.v1[input])
             print(f"V1:{list}")
+            
+            with open(Out_File, 'a') as f:
+                f.write(f"V1:{list}\n")
             input_v1 = podem.v1
             podem.circuit.set_inputs(**input_v1)
             podem.circuit.evaluate()
@@ -108,15 +109,15 @@ def launcher(podem,Inputs,stuck_at_fault,idx,thr_list):
             for output in Outputs:
                 list.append('x' if podem.v1[output] is None else podem.v1[output])
             print(f"output:{list}")
+            with open(Out_File, 'a') as f:
+                f.write(f"output:{list}\n")
         if(test_pattern):
-            # print(f"{idx}:: Test pattern for fault {fault}: {test_pattern}")
             list=[]
-            # list1=[]
             for input in Inputs:
                 list.append('x' if test_pattern[input] is None else test_pattern[input])
-                # list1.append(podem.v2[input])
             print(f"V2:{list}")
-            # print(f"V2_dash:{list1}")
+            with open(Out_File, 'a') as f:
+                f.write(f"V2:{list}\n")
             input_v2 = test_pattern
             podem.circuit.set_inputs(**input_v2)
             podem.circuit.evaluate()
@@ -125,12 +126,14 @@ def launcher(podem,Inputs,stuck_at_fault,idx,thr_list):
             for output in Outputs:
                 list.append('x' if v2_outputs[output] is None else v2_outputs[output])
             print(f"output:{list}")
+            with open(Out_File, 'a') as f:
+                f.write(f"output:{list}\n")
         
         Found_v2=1
 
 if __name__ == "__main__":
 
-    # Define the circuit
+    # Define the circuit and faults
     v_file='c432.v'
     delay_faults = ["N250/STR","N122/STF"]
     
@@ -145,17 +148,12 @@ if __name__ == "__main__":
 
     stuck_at_faults = convert_fault_list(delay_faults)
 
-    # Generate test patterns
-    #test_patterns1, test_patterns2 = generate_test_patterns(circuit, stuck_at_faults,Inputs,Outputs)
-
-
-    #for p1,p2 in zip(test_patterns1,test_patterns2):
-    #    print(f"Test pattern 1:  {p1}")
-    #    print(f"Test pattern 2: for {p2[1]}: {p2[0]}")
     for index,fault in enumerate(stuck_at_faults):
         threads=[]
         Found_v1=Found_v2=0
         print(f"\nTest Vectors for {delay_faults[index]}:")
+        with open(Out_File, 'a') as f:
+            f.write(f"\nTest Vectors for {delay_faults[index]}:\n")
         for i in range(len(Inputs)):
             circuit = create_test_ckt(v_file,Inputs,Outputs)
             # Initialize PODEM

@@ -1,7 +1,7 @@
 from itertools import product
 from parse_ckt import parse_file
-from Sync_Icarus_extended import parse_verilog
-from Sync_Icarus_extended import read_verilog_file
+from sync_basics import parse_verilog
+from sync_basics import read_verilog_file
 import copy
 
 def custom_and(*args):
